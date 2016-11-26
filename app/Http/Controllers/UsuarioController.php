@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Voting;
 use Illuminate\Http\Request;
+
 use App\Http\Requests;
-use App\User;
-use App\Role;
-use DB;
-use Hash;
 
-class UserController extends Controller
+class UsuarioController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
