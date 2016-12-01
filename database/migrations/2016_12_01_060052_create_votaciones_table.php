@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMantenedorLocalesTable extends Migration
+class CreateVotacionesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,21 +12,19 @@ class CreateMantenedorLocalesTable extends Migration
      */
     public function up()
     {
-        Schema::create('locales', function (Blueprint $table) {
+        Schema::create('votaciones', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('tag_id')->unsigned();
-            $table->string('logo')->nullable();
-            $table->string('encabezado')->nullable();
-            $table->string('telefono')->nullable();
-            $table->string('direccion')->nullable();
-            $table->integer('precio_minimo')->nullable();
-
+            $table->integer('local_id')->unsigned();
+            $table->integer('voto');
+            $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('tag_id')->references('id')->on('tags')
+
+            $table->foreign('local_id')->references('id')->on('locales')
                 ->onUpdate('cascade')->onDelete('cascade');
+
         });
     }
 
