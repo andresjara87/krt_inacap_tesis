@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePublicidadTable extends Migration
+class CreatePreguntasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,13 @@ class CreatePublicidadTable extends Migration
      */
     public function up()
     {
-        Schema::create('publicidades', function (Blueprint $table) {
+        Schema::create('preguntas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tag_id')->unsigned();
-            $table->string('nombre_publicidad', 200);
-            $table->string('img_publicidad', 100);
+            $table->string('pregunta',300);
+
             $table->foreign('tag_id')->references('id')->on('tags')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamps();
-
 
         });
     }

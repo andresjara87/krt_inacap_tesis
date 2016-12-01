@@ -8506,7 +8506,7 @@ namespace {
         /**
          * Returns the preferred language.
          *
-         * @param array $locales An array of ordered available locales
+         * @param array $locales An array of ordered available Locales
          * @return string|null The preferred locale
          * @static 
          */

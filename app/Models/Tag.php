@@ -16,4 +16,7 @@ class Tag extends Model
     public function votaciones(){
         return $this->hasMany(Voting::class, 'tag_id');
     }
+    public function locales(){
+        return $this->hasMany(Local::class, 'tag_id');
+    }
 }

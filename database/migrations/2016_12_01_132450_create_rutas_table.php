@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVotacionesTable extends Migration
+class CreateRutasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,13 @@ class CreateVotacionesTable extends Migration
      */
     public function up()
     {
-        Schema::create('votaciones', function (Blueprint $table) {
+        Schema::create('rutas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('local_id')->unsigned();
-            $table->integer('voto');
-            $table->timestamps();
+            $table->integer('presupuesto');
+            $table->integer('cantidad_personas');
 
             $table->foreign('user_id')->references('id')->on('users')
-                ->onUpdate('cascade')->onDelete('cascade');
-
-            $table->foreign('local_id')->references('id')->on('Locales')
                 ->onUpdate('cascade')->onDelete('cascade');
 
         });

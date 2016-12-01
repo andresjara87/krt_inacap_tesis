@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('users','UserController');
     Route::resource('news','NewsController');
+    Route::resource('local','LocalController');
     Route::resource('registro','UsuarioController');
 
 
@@ -56,6 +57,14 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('news/{id}/edit',['as'=>'news.edit','uses'=>'NewsController@edit','middleware' => ['permission:item-edit']]);
     Route::patch('news/{id}',['as'=>'news.update','uses'=>'NewsController@update','middleware' => ['permission:item-edit']]);
     Route::delete('news/{id}',['as'=>'news.destroy','uses'=>'NewsController@destroy','middleware' => ['permission:item-delete']]);
+
+    Route::get('local',['as'=>'local.index','uses'=>'LocalController@index','middleware' => ['permission:item-list|item-create|item-edit|item-delete']]);
+    Route::get('local/create',['as'=>'local.create','uses'=>'LocalController@create','middleware' => ['permission:item-create']]);
+    Route::post('local/create',['as'=>'local.store','uses'=>'LocalController@store','middleware' => ['permission:item-create']]);
+    Route::get('local/{id}',['as'=>'local.show','uses'=>'LocalController@show']);
+    Route::get('local/{id}/edit',['as'=>'local.edit','uses'=>'LocalController@edit','middleware' => ['permission:item-edit']]);
+    Route::patch('local/{id}',['as'=>'local.update','uses'=>'LocalController@update','middleware' => ['permission:item-edit']]);
+    Route::delete('local/{id}',['as'=>'local.destroy','uses'=>'LocalController@destroy','middleware' => ['permission:item-delete']]);
 });
 /*
     Route::get('/', function () {

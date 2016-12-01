@@ -23,7 +23,7 @@ class CreateRankingLocalTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
 
-            $table->foreign('local_id')->references('id')->on('locales')
+            $table->foreign('local_id')->references('id')->on('Locales')
                 ->onUpdate('cascade')->onDelete('cascade');
 
         });

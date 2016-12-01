@@ -26,7 +26,7 @@ class CreateOfertasTable extends Migration
             $table->foreign('tag_id')->references('id')->on('tags')
                 ->onUpdate('cascade')->onDelete('cascade');
 
-            $table->foreign('local_id')->references('id')->on('mantenedorLocales')
+            $table->foreign('local_id')->references('id')->on('Locales')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
