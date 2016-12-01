@@ -27,7 +27,10 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('users','UserController');
     Route::resource('news','NewsController');
-    Route::resource('registro','UserController');
+    Route::resource('registro','UsuarioController');
+
+
+    Route::get('votacion/{id}',['as'=>'votacion.show','uses'=>'VotingController@show']);
 
 
     Route::get('roles',['as'=>'roles.index','uses'=>'RoleController@index','middleware' => ['permission:role-list|role-create|role-edit|role-delete']]);

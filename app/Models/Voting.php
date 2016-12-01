@@ -8,7 +8,20 @@ class Voting extends Model
 {
     protected $table = 'voting';
 
-    protected $fillable = ['vote'];
+    protected $fillable = ['user_id','tag_id','vote'];
+
+
+    public function tag(){
+
+        return $this->belongsTo(Tag::class, 'tag_id');
+
+    }
+
+    public function user(){
+
+        return $this->belongsTo(User::class, 'user_id');
+
+    }
 
 
 
@@ -24,19 +37,18 @@ class Voting extends Model
 
         }
 
+    }
+    public function createSimilitud($idUser){
 
-      /*  $tags = DB::table('tags')
-            ->select(DB::raw('*'))
-            ->where('id', '=', $id)
-            ->get();
-        $array = array();
-        foreach($tags as $t){
-            insertAutomatic();
-            $array[] = $t->$idTag;
+        $voting = DB::table('voting')->where('user_id', $idUser);
+     //   $tags = Tag::all();
 
-        }*/
+        foreach ($voting as $t){
 
 
+
+
+        }
 
     }
 }

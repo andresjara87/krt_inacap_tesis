@@ -4,47 +4,103 @@
 	<div class="row">
 	    <div class="col-lg-12 margin-tb">
 	        <div class="pull-left">
-	            <h2>Users Management</h2>
+	            <h2>Registrate</h2>
 	        </div>
 	        <div class="pull-right">
-	            <a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>
+	            <a class="btn btn-primary" href="{{ route('users.index') }}"> Atras</a>
 	        </div>
 	    </div>
 	</div>
-	@if ($message = Session::get('success'))
-		<div class="alert alert-success">
-			<p>{{ $message }}</p>
+	@if (count($errors) > 0)
+		<div class="alert alert-danger">
+			<strong>Ups!</strong>Hay algunos problemas con los campos<br><br>
+			<ul>
+				@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+				@endforeach
+			</ul>
 		</div>
 	@endif
-	<table class="table table-bordered">
-		<tr>
-			<th>No</th>
-			<th>Name</th>
-			<th>Email</th>
-			<th>Roles</th>
-			<th width="280px">Action</th>
-		</tr>
-	@foreach ($data as $key => $user)
-	<tr>
-		<td>{{ ++$i }}</td>
-		<td>{{ $user->name }}</td>
-		<td>{{ $user->email }}</td>
-		<td>
-			@if(!empty($user->roles))
-				@foreach($user->roles as $v)
-					<label class="label label-success">{{ $v->display_name }}</label>
-				@endforeach
-			@endif
-		</td>
-		<td>
-			<a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
-			<a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
-			{!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-        	{!! Form::close() !!}
-		</td>
-	</tr>
-	@endforeach
-	</table>
-	{!! $data->render() !!}
+	{!! Form::open(array('route' => 'users.store','method'=>'POST')) !!}
+	<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Nombre Usuario:</strong>
+                    {!! Form::text('nickname', null, array('placeholder' => 'Nombre de Usuario','class' => 'form-control')) !!}
+                </div>
+            </div>
+		<div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Nombre:</strong>
+                {!! Form::text('first_name', null, array('placeholder' => 'Nombre','class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Apellidos:</strong>
+                        {!! Form::text('last_name', null, array('placeholder' => 'Apellidos','class' => 'form-control')) !!}
+                    </div>
+                </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Email:</strong>
+                {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Password:</strong>
+                {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Confirm Password:</strong>
+                {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Role:</strong>
+                {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Pregunta 1:</strong>
+                       <input type="text" name="pregunta1" value="">
+                    </div>
+                </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+                         <div class="form-group">
+                         <strong>Pregunta 2:</strong>
+                          <input type="text" name="pregunta2" value="">
+                          </div>
+                        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+                                 <div class="form-group">
+                                 <strong>Pregunta 3:</strong>
+                                  <input type="text" name="pregunta3" value="">
+                                  </div>
+         </div>
+         <div class="col-xs-12 col-sm-12 col-md-12">
+                                           <div class="form-group">
+                                            <strong>Pregunta 4:</strong>
+                                             <input type="text" name="pregunta4" value="">
+                                             </div>
+                        </div>
+          <div class="col-xs-12 col-sm-12 col-md-12">
+                          <div class="form-group">
+                                               <strong>Pregunta 5:</strong>
+                                               <input type="text" name="pregunta5" value="">
+                                                      </div>
+          </div>
+
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+				<button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+	</div>
+	{!! Form::close() !!}
 @endsection

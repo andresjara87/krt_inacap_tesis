@@ -13,4 +13,7 @@ class Tag extends Model
     public function tidings(){
         return $this->hasMany(News::class, 'tag_id');
     }
+    public function votaciones(){
+        return $this->hasMany(Voting::class, 'tag_id');
+    }
 }

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\User;
+use App\Role;
+use DB;
+use Hash;
 
 class UsuarioController extends Controller
 {
@@ -13,11 +17,10 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        $roles = Role::lists('display_name','id');
+        return view('public_krt.usuarios.create',compact('roles'));
     }
 
     /**

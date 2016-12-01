@@ -16,7 +16,7 @@ class CreateSimilitudesTable extends Migration
             $table->increments('id');
             $table->integer('userX_id')->unsigned();
             $table->integer('userY_id')->unsigned();
-            $table->integer('nota')->nullable();
+            $table->double('nota')->nullable();
 
             $table->foreign('userX_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');

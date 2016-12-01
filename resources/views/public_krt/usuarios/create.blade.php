@@ -7,7 +7,7 @@
 	            <h2>Registrate</h2>
 	        </div>
 	        <div class="pull-right">
-	            <a class="btn btn-primary" href="{{ route('users.index') }}"> Atras</a>
+	            <a class="btn btn-primary" href="{{ route('public_krt.index') }}"> Atras</a>
 	        </div>
 	    </div>
 	</div>
@@ -59,12 +59,7 @@
                 {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Role:</strong>
-                {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
-            </div>
-        </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Pregunta 1:</strong>
