@@ -5,6 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateRankingLocalTable extends Migration
 {
+    //ranking
     /**
      * Run the migrations.
      *

@@ -5,6 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateVotingTable extends Migration
 {
+    //crear voting
     /**
      * Run the migrations.
      *
