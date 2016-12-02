@@ -16,6 +16,7 @@ class CreateMantenedorLocalesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('tag_id')->unsigned();
+            $table->string('nombre_local')->nullable();
             $table->string('logo')->nullable();
             $table->string('encabezado')->nullable();
             $table->string('telefono')->nullable();

@@ -59,7 +59,7 @@ class UserController extends Controller
         $user = User::create($input);
 
 
-
+//crear voting al usuario
         foreach ($request->input('roles') as $key => $value) {
             $user->attachRole($value);
         }

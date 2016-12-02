@@ -2,12 +2,14 @@
 
 namespace App;
 
+use App\Models\Local;
 use App\Models\Similitud;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
+    protected $table = 'users';
     use EntrustUserTrait;
     /**
      * The attributes that are mass assignable.
@@ -26,6 +28,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function locales(){
+        return $this->hasMany(Local::class, 'user_id');
+    }
 
     public function votaciones(){
         return $this->hasMany(Voting::class, 'user_id');

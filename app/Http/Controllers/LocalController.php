@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Local;
+use App\User;
 use Illuminate\Http\Request;
-
+use App\Models\Tag;
 use App\Http\Requests;
+use Illuminate\Support\Facades\File;
+
 
 class LocalController extends Controller
 {
@@ -29,7 +32,8 @@ class LocalController extends Controller
     public function create()
     {
         $tags = Tag::lists('name_tag','id');
-        return view('Local.create',compact('tags'));
+        $users = User::lists('nickname','id');
+        return view('Locales.create',compact('tags','users'));
     }
 
     /**
@@ -40,6 +44,8 @@ class LocalController extends Controller
      */
     public function store(Request $request)
     {
+  //   var_dump($request);
+
         $this->validate($request, [
             'user_id' => 'required',
             'tag_id' => 'required',
@@ -47,27 +53,56 @@ class LocalController extends Controller
             'encabezado' => 'mimes:jpeg,bmp,png,jpg',
         ]);
 
-        if($request->hasFile('logo')){
-            $file = $request->file('logo');
-            $filename=$file->getClientOriginalName();
-            $request->file('logo')->move(public_path('uploads'),$filename);
-        }
+
+        $data=$request->all();
+        $carpeta=public_path('uploads').'/user'.$data['user_id'].'-'.$data['tag_id'];
+        $carpetaLogo=public_path('uploads').'/user'.$data['user_id'].'-'.$data['tag_id'].'/Logo';
+        $carpetaEncabezado=public_path('uploads').'/user'.$data['user_id'].'-'.$data['tag_id'].'/Encabezado';
+
+        File::makeDirectory($carpeta);
+        File::makeDirectory($carpetaLogo);
+        File::makeDirectory($carpetaEncabezado);
+
         if($request->hasFile('encabezado')){
             $file = $request->file('encabezado');
             $filename=$file->getClientOriginalName();
-            $request->file('encabezado')->move(public_path('uploads'),$filename);
+            $request->file('encabezado')->move($carpetaEncabezado,$filename);
+
+            $data = $request->except(['encabezado']);
+            $data['encabezado'] = $carpetaEncabezado . '/' . $request->file('encabezado')->getClientOriginalName();
         }
-        $data = $request->except(['logo'],['encabezado']);
-        $data['logo'] = public_path('uploads') . '/' . $request->file('logo')->getClientOriginalName();
-        $data['encabezado'] = public_path('uploads') . '/' . $request->file('encabezado')->getClientOriginalName();
 
+
+        if($request->hasFile('logo')){
+            $file = $request->file('logo');
+            $filename=$file->getClientOriginalName();
+            $request->file('logo')->move($carpetaLogo,$filename);
+            $data['logo'] = $carpetaLogo . '/' . $request->file('logo')->getClientOriginalName();
+        }
+
+
+    //    dd($data['logo']);
         Local::create($data);
-
-        return redirect()->route('local.index')
+        return redirect()->route('locales.index')
             ->with('exitoso','Local creado correctamente');
 
+/*
+            $input = $request->all();
+            Local::create($input);
+            return redirect()->route('locales.index')
+                ->with('exitoso','Local creado correctamente');*/
 
 
+       /* if($request->hasFile('encabezado')){
+            $file = $request->file('encabezado');
+            $filename=$file->getClientOriginalName();
+            $request->file('encabezado')->move(public_path('uploads'),$filename);
+        }*/
+
+
+    //    $data = $request->except(['logo'],['encabezado']);
+    //    $data['logo'] = public_path('uploads') . '/' . $request->file('logo')->getClientOriginalName();
+  //      $data['encabezado'] = public_path('uploads') . '/' . $request->file('encabezado')->getClientOriginalName();
 
     }
 
@@ -80,7 +115,7 @@ class LocalController extends Controller
     public function show($id)
     {
         $local = Local::find($id);
-        return view('Local.show',compact('local'));
+        return view('Locales.show',compact('local'));
     }
 
     /**
@@ -92,8 +127,11 @@ class LocalController extends Controller
     public function edit($id)
     {
         $tags = Tag::lists('name_tag','id');
+        $users = User::lists('nickname','id');
         $local = Local::find($id);
-        return view('Local.edit',compact('local','tags'));
+        $logo= substr($local->logo, 11);  // devuelve "abcde"
+        $encabezado = substr($local->logo, 11);
+        return view('Locales.edit',compact('local','tags','users','logo','encabezado'));
     }
 
     /**
@@ -113,43 +151,43 @@ class LocalController extends Controller
             'encabezado' => 'mimes:jpeg,bmp,png,jpg',
         ]);
 
-        if($request->hasFile('logo') && $request->hasFile('encabezado')){
+
+
+        $data=$request->all();
+
+
+        $carpetaLogo=public_path('uploads').'/user'.$data['user_id'].'-'.$data['tag_id'].'/Logo';
+        $carpetaEncabezado=public_path('uploads').'/user'.$data['user_id'].'-'.$data['tag_id'].'/Encabezado';
+        if($request->hasFile('logo')){
+
             $file = $request->file('logo');
             $filename=$file->getClientOriginalName();
-            $request->file('logo')->move(public_path('uploads'),'photo_'.$id.'_'.$filename);
+            $request->file('logo')->move($carpetaLogo,$filename);
 
-            $file = $request->file('encabezado');
-            $filename=$file->getClientOriginalName();
-            $request->file('encabezado')->move(public_path('uploads'),'photo_'.$id.'_'.$filename);
-
-            $data = $request->except(['logo'],['encabezado']);
-            $data['logo'] = public_path('uploads') . '/' . 'photo_'.$id.'_'.$request->file('logo')->getClientOriginalName();
-            $data['encabezado'] = public_path('uploads') . '/' . 'photo_'.$id.'_'.$request->file('logo')->getClientOriginalName();
+            $data = $request->except(['logo']);
+            $data['logo'] = $carpetaLogo . '/' . $request->file('logo')->getClientOriginalName();
 
 
-
-            //      $img = News::lists('imgNews');
-
-            $path_old =  Local::find($id)->logo;;
+            $path_old =  Local::find($id)->logo;
             File::delete($path_old);
-            $path_old2 =  Local::find($id)->encabezado;;
-            File::delete($path_old2);
-
-            Local::find($id)->update($data);
-            return redirect()->route('local.index')
-                ->with('exitoso','Local actualizado correctamente');
-
-
-        }else{
-
-            $data = $request->except(['logo'],['encabezado']);
-
-            Local::find($id)->update($data);
-            return redirect()->route('local.index')
-                ->with('exitoso','Local actualizado correctamente');
-
         }
 
+        if($request->hasFile('encabezado')){
+            $file = $request->file('encabezado');
+            $filename=$file->getClientOriginalName();
+            $request->file('encabezado')->move($carpetaEncabezado,$filename);
+
+            $data = $request->except(['encabezado']);
+            $data['encabezado'] = $carpetaEncabezado . '/' . $request->file('encabezado')->getClientOriginalName();
+
+            $path_old =  Local::find($id)->encabezado;
+            File::delete($path_old);
+        }
+
+
+            Local::find($id)->update($data);
+            return redirect()->route('locales.index')
+                ->with('exitoso','Local actualizado correctamente');
     }
 
     /**
@@ -161,7 +199,7 @@ class LocalController extends Controller
     public function destroy($id)
     {
         Local::find($id)->delete();
-        return redirect()->route('local.index')
+        return redirect()->route('locales.index')
             ->with('exitoso','Local borrado correctamente');
     }
 }

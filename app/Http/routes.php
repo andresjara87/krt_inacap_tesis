@@ -58,7 +58,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::patch('news/{id}',['as'=>'news.update','uses'=>'NewsController@update','middleware' => ['permission:item-edit']]);
     Route::delete('news/{id}',['as'=>'news.destroy','uses'=>'NewsController@destroy','middleware' => ['permission:item-delete']]);
 
-    Route::get('local',['as'=>'local.index','uses'=>'LocalController@index','middleware' => ['permission:item-list|item-create|item-edit|item-delete']]);
+    Route::get('local',['as'=>'locales.index','uses'=>'LocalController@index','middleware' => ['permission:item-list|item-create|item-edit|item-delete']]);
     Route::get('local/create',['as'=>'local.create','uses'=>'LocalController@create','middleware' => ['permission:item-create']]);
     Route::post('local/create',['as'=>'local.store','uses'=>'LocalController@store','middleware' => ['permission:item-create']]);
     Route::get('local/{id}',['as'=>'local.show','uses'=>'LocalController@show']);
