@@ -30,8 +30,72 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('local','LocalController');
     Route::resource('registro','UsuarioController');
 
+    Route::resource('comentarios','ComentarioController');
+    Route::resource('eventos','EventoController');
+    Route::resource('ofertas','OfertaController');
+    Route::resource('preguntas','PreguntaController');
+    Route::resource('publicidades','PublicidadController');
+    Route::resource('rankings','RankingController');
+    Route::resource('rutas','RutaController');
+
 
     Route::get('votacion/{id}',['as'=>'votacion.show','uses'=>'VotingController@show']);
+
+    Route::get('rutas',['as'=>'ruta.index','uses'=>'RutaController@index','middleware' => ['permission:item-list|item-create|item-edit|item-delete']]);
+    Route::get('rutas/create',['as'=>'ruta.create','uses'=>'RutaController@create','middleware' => ['permission:item-create']]);
+    Route::post('rutas/create',['as'=>'ruta.store','uses'=>'RutaController@store','middleware' => ['permission:item-create']]);
+    Route::get('rutas/{id}',['as'=>'ruta.show','uses'=>'RutaController@show']);
+    Route::get('rutas/{id}/edit',['as'=>'ruta.edit','uses'=>'RutaController@edit','middleware' => ['permission:item-edit']]);
+    Route::patch('rutas/{id}',['as'=>'ruta.update','uses'=>'RutaController@update','middleware' => ['permission:item-edit']]);
+    Route::delete('rutas/{id}',['as'=>'ruta.destroy','uses'=>'RutaController@destroy','middleware' => ['permission:item-delete']]);
+
+    Route::get('rankings',['as'=>'ranking.index','uses'=>'RankingController@index','middleware' => ['permission:item-list|item-create|item-edit|item-delete']]);
+    Route::get('rankings/create',['as'=>'ranking.create','uses'=>'RankingController@create','middleware' => ['permission:item-create']]);
+    Route::post('rankings/create',['as'=>'ranking.store','uses'=>'RankingController@store','middleware' => ['permission:item-create']]);
+    Route::get('rankings/{id}',['as'=>'ranking.show','uses'=>'RankingController@show']);
+    Route::get('rankings/{id}/edit',['as'=>'ranking.edit','uses'=>'RankingController@edit','middleware' => ['permission:item-edit']]);
+    Route::patch('rankings/{id}',['as'=>'ranking.update','uses'=>'RankingController@update','middleware' => ['permission:item-edit']]);
+    Route::delete('rankings/{id}',['as'=>'ranking.destroy','uses'=>'RankingController@destroy','middleware' => ['permission:item-delete']]);
+
+    Route::get('publicidades',['as'=>'publicidad.index','uses'=>'PublicidadController@index','middleware' => ['permission:item-list|item-create|item-edit|item-delete']]);
+    Route::get('publicidades/create',['as'=>'publicidad.create','uses'=>'PublicidadController@create','middleware' => ['permission:item-create']]);
+    Route::post('publicidades/create',['as'=>'publicidad.store','uses'=>'PublicidadController@store','middleware' => ['permission:item-create']]);
+    Route::get('publicidades/{id}',['as'=>'publicidad.show','uses'=>'PublicidadController@show']);
+    Route::get('publicidades/{id}/edit',['as'=>'publicidad.edit','uses'=>'PublicidadController@edit','middleware' => ['permission:item-edit']]);
+    Route::patch('publicidades/{id}',['as'=>'publicidad.update','uses'=>'PublicidadController@update','middleware' => ['permission:item-edit']]);
+    Route::delete('publicidades/{id}',['as'=>'publicidad.destroy','uses'=>'PublicidadController@destroy','middleware' => ['permission:item-delete']]);
+
+    Route::get('preguntas',['as'=>'pregunta.index','uses'=>'PreguntaController@index','middleware' => ['permission:item-list|item-create|item-edit|item-delete']]);
+    Route::get('preguntas/create',['as'=>'pregunta.create','uses'=>'PreguntaController@create','middleware' => ['permission:item-create']]);
+    Route::post('preguntas/create',['as'=>'pregunta.store','uses'=>'PreguntaController@store','middleware' => ['permission:item-create']]);
+    Route::get('preguntas/{id}',['as'=>'pregunta.show','uses'=>'PreguntaController@show']);
+    Route::get('preguntas/{id}/edit',['as'=>'pregunta.edit','uses'=>'PreguntaController@edit','middleware' => ['permission:item-edit']]);
+    Route::patch('preguntas/{id}',['as'=>'pregunta.update','uses'=>'PreguntaController@update','middleware' => ['permission:item-edit']]);
+    Route::delete('preguntas/{id}',['as'=>'pregunta.destroy','uses'=>'PreguntaController@destroy','middleware' => ['permission:item-delete']]);
+
+    Route::get('ofertas',['as'=>'oferta.index','uses'=>'OfertaController@index','middleware' => ['permission:item-list|item-create|item-edit|item-delete']]);
+    Route::get('ofertas/create',['as'=>'oferta.create','uses'=>'OfertaController@create','middleware' => ['permission:item-create']]);
+    Route::post('ofertas/create',['as'=>'oferta.store','uses'=>'OfertaController@store','middleware' => ['permission:item-create']]);
+    Route::get('ofertas/{id}',['as'=>'oferta.show','uses'=>'OfertaController@show']);
+    Route::get('ofertas/{id}/edit',['as'=>'oferta.edit','uses'=>'OfertaController@edit','middleware' => ['permission:item-edit']]);
+    Route::patch('ofertas/{id}',['as'=>'oferta.update','uses'=>'OfertaController@update','middleware' => ['permission:item-edit']]);
+    Route::delete('ofertas/{id}',['as'=>'oferta.destroy','uses'=>'OfertaController@destroy','middleware' => ['permission:item-delete']]);
+
+    Route::get('eventos',['as'=>'evento.index','uses'=>'EventoController@index','middleware' => ['permission:item-list|item-create|item-edit|item-delete']]);
+    Route::get('eventos/create',['as'=>'evento.create','uses'=>'EventoController@create','middleware' => ['permission:item-create']]);
+    Route::post('eventos/create',['as'=>'evento.store','uses'=>'EventoController@store','middleware' => ['permission:item-create']]);
+    Route::get('eventos/{id}',['as'=>'evento.show','uses'=>'EventoController@show']);
+    Route::get('eventos/{id}/edit',['as'=>'evento.edit','uses'=>'EventoController@edit','middleware' => ['permission:item-edit']]);
+    Route::patch('eventos/{id}',['as'=>'evento.update','uses'=>'EventoController@update','middleware' => ['permission:item-edit']]);
+    Route::delete('eventos/{id}',['as'=>'evento.destroy','uses'=>'EventoController@destroy','middleware' => ['permission:item-delete']]);
+
+    Route::get('comentarios',['as'=>'comentario.index','uses'=>'ComentarioController@index','middleware' => ['permission:item-list|item-create|item-edit|item-delete']]);
+    Route::get('comentarios/create',['as'=>'comentario.create','uses'=>'ComentarioController@create','middleware' => ['permission:item-create']]);
+    Route::post('comentarios/create',['as'=>'comentario.store','uses'=>'ComentarioController@store','middleware' => ['permission:item-create']]);
+    Route::get('comentarios/{id}',['as'=>'comentario.show','uses'=>'ComentarioController@show']);
+    Route::get('comentarios/{id}/edit',['as'=>'comentario.edit','uses'=>'ComentarioController@edit','middleware' => ['permission:item-edit']]);
+    Route::patch('comentarios/{id}',['as'=>'comentario.update','uses'=>'ComentarioController@update','middleware' => ['permission:item-edit']]);
+    Route::delete('comentarios/{id}',['as'=>'comentario.destroy','uses'=>'ComentarioController@destroy','middleware' => ['permission:item-delete']]);
 
 
     Route::get('roles',['as'=>'roles.index','uses'=>'RoleController@index','middleware' => ['permission:role-list|role-create|role-edit|role-delete']]);
