@@ -8,7 +8,7 @@
 	        </div>
 	        <div class="pull-right">
 	        	@permission('item-create')
-	            <a class="btn btn-success" href="{{ route('local.create') }}"> Create New Noticia</a>
+	            <a class="btn btn-success" href="{{ route('comentario.create') }}">inactivo</a>
 	            @endpermission
 	        </div>
 	    </div>
@@ -27,24 +27,23 @@
             <th>Dirección</th>
 			<th width="280px">Action</th>
 		</tr>
-	@foreach ($locales as $key => $local)
+	@foreach ($comentarios as $key => $comentario)
 	<tr>
 
 		<td>{{ ++$i }}</td>
-		<td>{{ $local->user->nickname }}</td>
-		<td>{{ $local->tag->name_tag }}</td>
-		<td>{{ $local->telefono }}</td>
-		<td>{{ $local->direccion }}</td>
+		<td>{{ $comentario->user->nickname }}</td>
+		<td>{{ $comentario->comentario }}</td>
+
 
 
 
 		<td>
-			<a class="btn btn-info" href="{{ route('local.show',$local->id) }}">Show</a>
+			<a class="btn btn-info" href="{{ route('comentario.show',$comentario->id) }}">Show</a>
 			@permission('item-edit')
-			<a class="btn btn-primary" href="{{ route('local.edit',$local->id) }}">Edit</a>
+			<a class="btn btn-primary" href="{{ route('comentario.edit',$comentario->id) }}">Edit</a>
 			@endpermission
 			@permission('item-delete')
-			{!! Form::open(['method' => 'DELETE','route' => ['local.destroy', $local->id],'style'=>'display:inline']) !!}
+			{!! Form::open(['method' => 'DELETE','route' => ['comentario.destroy', $comentario->id],'style'=>'display:inline']) !!}
             {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
         	{!! Form::close() !!}
         	@endpermission
@@ -52,5 +51,5 @@
 	</tr>
 	@endforeach
 	</table>
-	{!! $locales->render() !!}
+	{!! $comentarios->render() !!}
 @endsection

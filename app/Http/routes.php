@@ -14,16 +14,22 @@
 
 
 
-
+/*
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('public_krt.index');
+});*/
+
+Route::get('/', 'SessionController@index');
+
 
 Route::auth();
 
 Route::group(['middleware' => ['auth']], function() {
 
+
+
     Route::get('/home', 'HomeController@index');
+   // Route::get('/', 'SessionController@index');
 
     Route::resource('users','UserController');
     Route::resource('news','NewsController');
