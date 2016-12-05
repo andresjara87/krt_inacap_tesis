@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 
     Route::get('votacion/{id}',['as'=>'votacion.show','uses'=>'VotingController@show']);
+    Route::post('/votacion',['as'=>'voting.update','uses'=>'VotingController@update','middleware' => ['permission:votacion-preguntas']]);
 
     Route::get('rutas',['as'=>'ruta.index','uses'=>'RutaController@index','middleware' => ['permission:item-list|item-create|item-edit|item-delete']]);
     Route::get('rutas/create',['as'=>'ruta.create','uses'=>'RutaController@create','middleware' => ['permission:item-create']]);

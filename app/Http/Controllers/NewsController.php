@@ -132,7 +132,11 @@ class NewsController extends Controller
 
         }else{
 
+
+
             $data = $request->except(['imgNews']);
+
+            dd($data);
 
             News::find($id)->update($data);
             return redirect()->route('news.index')

@@ -15,6 +15,7 @@ class CreateNewsTable extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name_tag');
+            $table->string('name_obj');
         });
 
         Schema::create('news', function (Blueprint $table) {

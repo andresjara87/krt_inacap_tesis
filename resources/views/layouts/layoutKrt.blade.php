@@ -10,6 +10,8 @@
     	<link rel="stylesheet" href="../../../public/css/jquery.mCustomScrollbar.css" />-->
     	{{ Html::style('css/style.css') }}
 
+    	{{ Html::script('js/jquery.mousewheel-3.0.6.pack.js') }}
+
 </head>
 <body>
 <header>
@@ -22,6 +24,7 @@
 	@if (Auth::guest())
 	<a href="{{ url('/login') }}">Login</a><a href="{{ url('/register') }}">Crear Cuenta</a>
 	@else
+	<span>{{ Auth::user()->getNameAttribute() }}</span>
 	<a href="{{ url('/logout') }}">Logout</a>
 	@endif
 	</section>

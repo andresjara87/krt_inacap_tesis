@@ -8,7 +8,7 @@ class Tag extends Model
 {
     protected $table = 'tags';
     public $timestamps = false;
-    protected $fillable = ['name_tag'];
+    protected $fillable = ['name_tag','name_obj'];
 
     public function tidings(){
         return $this->hasMany(News::class, 'tag_id');

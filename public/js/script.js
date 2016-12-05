@@ -1,5 +1,61 @@
- $(document).ready(function(){ 
+ $(document).ready(function(){
 
+
+function openVentana(){
+
+$('.ventana').fadeIn('slow');
+
+
+}
+function closeVentana(){
+
+$('.ventana').fadeOut('fast');
+
+
+}
+
+ $(".ventanaAbrir").on('click', function(){
+
+openVentana();
+
+ });
+  $(".cerrar").on('click', function(){
+
+closeVentana()
+
+ });
+
+
+if ($('input[name=session]').val()==0){
+
+   $("a.ventanaAbrir").trigger('click');
+
+
+/*
+  function showLightBox() 
+  { 
+    var delayseconds = 3;
+    function pause() {
+    myTimer = setTimeout('whatToDo()', delayseconds * 1000)
+    }
+   function whatToDo() {
+        $("a.lightbox").click();
+    }
+  }
+  showLightBox();*/
+
+}
+
+
+$(function() {
+$("input.sessionNull").change(function(){
+
+	 
+
+	 alert($('input[name=session]').val());
+  
+});
+});
 
 
 $("#menu-icono li a").mousemove(function(e) {  

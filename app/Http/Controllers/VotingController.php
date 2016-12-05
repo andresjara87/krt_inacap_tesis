@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Similitud;
+use App\Models\Tag;
 use App\Models\Voting;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -276,6 +277,85 @@ class VotingController extends Controller
             }
 
         }
+
+    }
+    public function update(Request $request)
+    {
+         $votos = array();
+         $filtroVotos = array();
+         if($request->has("user")) {
+         }
+
+        $tag = Tag::all();
+        $input = $request->input();
+
+//        dd($input);
+
+        $votos["_method"]="PATCH";
+        $votos["_token"]=$request->input("_token");
+        $votos["user_id"]=(integer)$request->input("user");
+
+        $voting = Voting::all();
+        $update =  new Voting();
+        $filtroVoting = $voting->where('user_id',$votos["user_id"]);
+
+     //   dd($filtroVoting);
+
+        foreach($input as $key=> $i){
+
+         //   echo $key. " es igual a " .$input[$key];
+         //   echo "</br>";
+
+            foreach($tag as $key2=> $t){
+                //     echo $key. " es igual a " .$t->name_obj;
+                //     echo "</br>";
+                if($t->name_obj==$key) {
+                    $votos['tag_id']=$t->id;
+                    $votos['vote']=(integer)$input[$key];
+
+                    foreach($filtroVoting as $key3=> $f){
+
+                        if($votos['tag_id']==$f->tag_id){
+                            Voting::find($f->id)->update($votos);
+                        }
+                    }
+                }
+
+            }
+        }
+
+
+
+
+       dd($votos);
+         /*    foreach($tag as $key=> $t){
+
+                 if($t->name_obj==$request->comida){
+
+
+
+                 }
+
+
+
+
+
+             }
+
+             $idUser =$request->user;
+
+
+             $voting = new Voting();
+             $voting->createData($t);
+
+
+
+
+
+
+         }*/
+
+        dd($request->input("user"));
 
     }
     public function userRecomendacionKvecinos($recomendacion){
