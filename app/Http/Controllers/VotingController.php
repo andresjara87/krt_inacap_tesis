@@ -296,7 +296,6 @@ class VotingController extends Controller
         $votos["user_id"]=(integer)$request->input("user");
 
         $voting = Voting::all();
-        $update =  new Voting();
         $filtroVoting = $voting->where('user_id',$votos["user_id"]);
 
      //   dd($filtroVoting);

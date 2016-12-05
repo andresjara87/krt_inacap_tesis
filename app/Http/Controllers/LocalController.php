@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Local;
+use App\Models\Role_User;
 use App\User;
 use Illuminate\Http\Request;
 use App\Models\Tag;
 use App\Http\Requests;
 use Illuminate\Support\Facades\File;
+
 
 
 class LocalController extends Controller
@@ -32,8 +34,38 @@ class LocalController extends Controller
     public function create()
     {
         $tags = Tag::lists('name_tag','id');
-        $users = User::lists('nickname','id');
-        return view('Locales.create',compact('tags','users'));
+        $users = User::all();
+        $roleUser = Role_User::all();
+        $filtro = array();
+
+
+
+
+        $userCliente = $roleUser->where('role_id',3);
+
+        foreach($userCliente as $key=> $f){
+
+           // echo $userCliente[$key]["user_id"];
+
+            foreach($users as $key2 => $u){
+              //  echo $u->id;
+                if($userCliente[$key]["user_id"]==$u->id){
+
+                    $filtro[$key]["user_id"] = $u->id;
+                    $filtro[$key]["nickname"] = $u->nickname;
+
+
+                }
+
+            }
+
+        }
+
+
+
+      //   dd($filtro[1]["nickname"]);
+
+        return view('Locales.create',compact('tags','filtro'));
     }
 
     /**
@@ -127,11 +159,39 @@ class LocalController extends Controller
     public function edit($id)
     {
         $tags = Tag::lists('name_tag','id');
-        $users = User::lists('nickname','id');
+
         $local = Local::find($id);
         $logo= substr($local->logo, 11);  // devuelve "abcde"
         $encabezado = substr($local->logo, 11);
-        return view('Locales.edit',compact('local','tags','users','logo','encabezado'));
+        $users = User::all();
+        $roleUser = Role_User::all();
+        $filtro = array();
+
+        $userCliente = $roleUser->where('role_id',3);
+
+        foreach($userCliente as $key=> $f){
+
+            // echo $userCliente[$key]["user_id"];
+
+            foreach($users as $key2 => $u){
+                //  echo $u->id;
+                if($userCliente[$key]["user_id"]==$u->id){
+
+                    $filtro[$key]["user_id"] = $u->id;
+                    $filtro[$key]["nickname"] = $u->nickname;
+
+
+                }
+
+            }
+
+        }
+
+
+
+
+
+        return view('Locales.edit',compact('local','tags','filtro','logo','encabezado'));
     }
 
     /**

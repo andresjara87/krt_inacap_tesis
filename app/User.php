@@ -33,6 +33,7 @@ class User extends Authenticatable
         return $this->hasMany(Local::class, 'user_id');
     }
 
+
     public function votaciones(){
         return $this->hasMany(Voting::class, 'user_id');
     }

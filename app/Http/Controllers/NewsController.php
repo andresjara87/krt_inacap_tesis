@@ -123,7 +123,7 @@ class NewsController extends Controller
 
       //      $img = News::lists('imgNews');
 
-           $path_old =  News::find($id)->imgNews;;
+           $path_old =  News::find($id)->imgNews;
             File::delete($path_old);
             News::find($id)->update($data);
             return redirect()->route('news.index')

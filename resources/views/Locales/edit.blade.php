@@ -26,7 +26,15 @@
 		<div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Usuario:</strong>
-               {!! Form::select('user_id', $users, null, array('class' => 'form-control')) !!}
+                     <select name="user_id" class="form-control">
+                                    @foreach ($filtro as $key => $f)
+                                                   @if($filtro[$key]['user_id']==$local->user_id)
+                                                     <option selected value="{{ $filtro[$key]['user_id'] }}">{{$filtro[$key]['nickname']}}</option>
+                                                  @else
+                                                     <option value="{{ $filtro[$key]['user_id'] }}">{{$filtro[$key]['nickname']}}</option>
+                                                  @endif
+                                    @endforeach
+                                   </select>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -75,7 +83,7 @@
                       <div class="col-xs-12 col-sm-12 col-md-12">
                                                           <div class="form-group">
                                                                  <strong>Precio_minimo:</strong>
-                                                                         {!! Form::text('direccion', null, array('placeholder' => 'Dirección','class' => 'form-control')) !!}
+                                                                         {!! Form::text('precio_minimo', null, array('placeholder' => 'Dirección','class' => 'form-control')) !!}
 
                                                            </div>
                        </div>

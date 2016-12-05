@@ -8,7 +8,7 @@
 	        </div>
 	        <div class="pull-right">
 	        	@permission('item-create')
-	            <a class="btn btn-success" href="{{ route('local.create') }}"> Create New Noticia</a>
+	            <a class="btn btn-success" href="{{ route('local.create') }}"> Crear nuevo Local</a>
 	            @endpermission
 	        </div>
 	    </div>
@@ -25,7 +25,7 @@
 			<th>Categoría</th>
 			<th>Telefono</th>
             <th>Dirección</th>
-			<th width="280px">Action</th>
+			<th width="280px">Acción</th>
 		</tr>
 	@foreach ($locales as $key => $local)
 	<tr>
@@ -39,13 +39,13 @@
 
 
 		<td>
-			<a class="btn btn-info" href="{{ route('local.show',$local->id) }}">Show</a>
+			<a class="btn btn-info" href="{{ route('local.show',$local->id) }}">Mostrar</a>
 			@permission('item-edit')
-			<a class="btn btn-primary" href="{{ route('local.edit',$local->id) }}">Edit</a>
+			<a class="btn btn-primary" href="{{ route('local.edit',$local->id) }}">Editar</a>
 			@endpermission
 			@permission('item-delete')
 			{!! Form::open(['method' => 'DELETE','route' => ['local.destroy', $local->id],'style'=>'display:inline']) !!}
-            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+            {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
         	{!! Form::close() !!}
         	@endpermission
 		</td>

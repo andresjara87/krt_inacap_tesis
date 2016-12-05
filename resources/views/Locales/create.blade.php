@@ -27,7 +27,14 @@
 		<div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Cliente:</strong>
-               {!! Form::select('user_id', $users, null, array('class' => 'form-control')) !!}
+
+                     <select name="user_id" class="form-control">
+                      @foreach ($filtro as $key => $f)
+                       <option value="{{ $filtro[$key]['user_id'] }}">{{$filtro[$key]['nickname']}}</option>
+                       @endforeach
+                     </select>
+
+
             </div>
         </div>
 
